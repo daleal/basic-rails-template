@@ -1,25 +1,15 @@
-# Ignore everything
-*
+# Ignore .git folder
+.git
 
-# Include application files
-!app
-!bin
-!config
-!db
-!lib
-!public
+# Ignore .env files
+.env
+.env.example
+
+# Ignore logs
+log
+
+# Ignore compiled assets
 public/assets/*
-!test
-!vendor
-!config.ru
-!package.json
-!Rakefile
 
-# Include build files
-!.ruby-version
-!Gemfile
-!Gemfile.lock
-!entrypoint.sh
-
-# Include misc files
-!LICENSE
+# Ignore storage
+storage
