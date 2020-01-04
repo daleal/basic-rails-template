@@ -1,20 +1,33 @@
 FROM ruby:2.6-rc
 LABEL maintainer="dlleal@uc.cl"
 
-RUN apt-get update \
-    && apt-get install -y postgresql-client \
-    && apt-get install -y nodejs \
+# Install necessary dependencies
+RUN curl https://deb.nodesource.com/setup_12.x | bash \
+    && curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | \
+        tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update && apt-get install -y nodejs yarn postgresql-client \
     # add support to unicode chars from keyboard: ç,ã,ô:
     && apt-get install -y locales \
     && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && /usr/sbin/locale-gen \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir -p /myapp
 
-RUN mkdir /myapp
-WORKDIR /myapp
+# Copy Gemfile to image
 COPY Gemfile Gemfile.lock /myapp/
+WORKDIR /myapp
+
+# Install gems
 RUN bundle install
 
+# Run yarn
+RUN yarn install
+
+# Copy files to image
 COPY . /myapp
+
+# Precompile assets
+RUN bundle exec rails assets:precompile
 
 # Fix C.UTF-8 bugs
 ENV LANG en_US.UTF-8
