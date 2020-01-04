@@ -1,0 +1,25 @@
+# Ignore everything
+*
+
+# Include application files
+!app
+!bin
+!config
+!db
+!lib
+!public
+public/assets/*
+!test
+!vendor
+!config.ru
+!package.json
+!Rakefile
+
+# Include build files
+!.ruby-version
+!Gemfile
+!Gemfile.lock
+!entrypoint.sh
+
+# Include misc files
+!LICENSE

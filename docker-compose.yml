@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    networks:
+      - backend
+  web:
+    build:
+      context: .
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    env_file: .env
+    depends_on:
+      - db
+    networks:
+      - backend
+networks:
+  backend:
