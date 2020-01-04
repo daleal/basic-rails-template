@@ -1,8 +1,9 @@
 # Ignore .git folder
 .git
 
-# Ignore .env
+# Ignore .env files
 .env
+.env.example
 
 # Ignore logs
 log
