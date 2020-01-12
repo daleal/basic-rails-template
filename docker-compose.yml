@@ -18,5 +18,10 @@ services:
       - db
     networks:
       - backend
+
+volumes:
+  data:
+    driver: local
+
 networks:
   backend:
