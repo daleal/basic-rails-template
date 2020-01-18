@@ -11,6 +11,10 @@ The requirements for this template are simple:
 * `Docker`
 * `Docker Compose`
 
+Additionally, to deploy to `heroku` you will need:
+
+* `Heroku`
+
 ### Plug and Play
 
 This repo comes with a `docker-compose.yml` file to handle using a `postgres` image pulled from the web and to use a `.env` file for environmental variables. As such, `compose` requires a `.env` file to function, so run:
@@ -40,6 +44,13 @@ docker-compose up
 ```
 
 From now on, every command regarding the app that should be run as `[COMMAND]` will now be run as `docker-compose run web [COMMAND]`. This includes database migrations (`docker-compose run web rails db:migrate`).
+
+### Caveats (or, may I say, Docker and Windows)
+
+If you are using `Docker` on _Linux_ or `Docker` on _MacOS_, chances are your usage process has been almost flawless, and the instructions given in the tutorial worked at the first try. However, if you are using `Docker Toolbox` on Windows or `Docker for Windows` on Windows, things are different. Mainly, two things change:
+
+* Due to the technology being run inside a _Virtual Machine_, instead of finding your app in `localhost:3000`, your app will be defaulted to `192.168.99.100:3000` and will **not** be found in `localhost:3000`.
+* Due to the database volume being mounted to a _named volume_ created by the _Virtual Machine_, every Docker update **will** wipe your database clean. When using for development purposes, some simple seeds are enough to make this a _no-problem_. Keep an eye if that is your production environment, though, as data **will** be lost if you are not careful.
 
 ### Docker Image
 
